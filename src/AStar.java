@@ -9,6 +9,8 @@ import java.util.Queue;
 import java.util.Set;
 
 public class AStar {
+	
+	public static final int CAPACITY = 11;
 
 	private AStarGraph graph;
 	
@@ -16,16 +18,15 @@ public class AStar {
 		this.graph = graph;
 	}
 	
-	public List<Integer> aStar(int source, int destination) {
-		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(11, new AStarVertex());
-		AStarVertex root = graph.getVertex(source);
-		root.setG(0);
-		root.setH(destination);
-		root.setF();
-		openSet.add(root);
-		
+	public List<Integer> search(int source, int destination) {
 		Map<Integer, Integer> path = new HashMap<Integer, Integer>();
+		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
 		Set<AStarVertex> closedSet = new HashSet<AStarVertex>();
+		AStarVertex rootVertex = graph.getVertex(source);
+		rootVertex.setG(0.0);
+		rootVertex.setH(destination);
+		rootVertex.setF();
+		openSet.add(rootVertex);
 		
 		while (!openSet.isEmpty()) {
 			AStarVertex currentVertex = openSet.poll();
@@ -44,10 +45,10 @@ public class AStar {
 				}
 				
 				double distance = entry.getValue();
-				double ambiguousG = distance + currentVertex.getG();
+				double g = distance + currentVertex.getG();
 				
-				if (ambiguousG < adjacentVertex.getG()) {
-					adjacentVertex.setG(ambiguousG);
+				if (g < adjacentVertex.getG()) {
+					adjacentVertex.setG(g);
 					adjacentVertex.setH(destination);
 					adjacentVertex.setF();
 					

@@ -69,10 +69,10 @@ public class UniformCost {
     private void path(double graph[][], int source, int destination) {
         int vertex = destination;
     	pathList.add(vertex);
-        boolean found = false;
-        while (!found) {
+        boolean succeed = false;
+        while (!succeed) {
             if (vertex == source) {
-                found = true;
+                succeed = true;
                 break;
             }
             pathList.add(parentVertices[vertex]);

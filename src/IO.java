@@ -27,10 +27,9 @@ public class IO {
 	int readLines() throws IOException {
 		FileReader file = new FileReader(path);
 		BufferedReader buffer = new BufferedReader(file);
-		String line;
 		int lineCount = 0;
 		
-		while ((line = buffer.readLine()) != null) {
+		while (buffer.readLine() != null) {
 			lineCount++;
 		}
 		

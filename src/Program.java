@@ -7,17 +7,31 @@ public class Program {
 	
 	public static void main(String[] args) throws IOException {
 
-		String path = "/Users/Richardricmn/Downloads/example1/exEnv1.txt";
+		String envPath = "/Users/Richardricmn/Downloads/example1/exEnv1.txt";
+		String queryPath = "/Users/Richardricmn/Downloads/example1/exQueries1.txt";
 
 		try {
-			IO file = new IO(path);
-			String lines[] = file.readFile();
+			IO envFile = new IO(envPath);
+			IO queryFile = new IO(queryPath);
 			
-			int matrixSize = Integer.parseInt(lines[0]);			
+			String envLines[] = envFile.readFile();
+			String queryLines[] = queryFile.readFile();
+			
+			int matrixSize = Integer.parseInt(envLines[0]);			
 			double adjacencyMatrix[][] = new double[matrixSize][matrixSize];
 			
-			for (int i = 1; i < lines.length; i++) {
-				String[] splitStr = lines[i].split(" ");
+			for (int i = 1; i < queryLines.length; i++) {
+				String[] splitStr = queryLines[i].split(" ");
+				for (int j = 0; j < splitStr.length; j++) {
+					System.out.print(splitStr[j] + " ");
+				}
+				System.out.println("");
+			}
+			
+			System.out.println("");
+			
+			for (int i = 1; i < envLines.length; i++) {
+				String[] splitStr = envLines[i].split(" ");
 				for (int j = 0; j < splitStr.length; j++) {
 					adjacencyMatrix[i-1][j] = Double.parseDouble(splitStr[j]);
 				}
@@ -176,7 +190,7 @@ public class Program {
 	        
 	        AStar aStar = new AStar(graph);
 	        
-	        List<Integer> aStarPath = aStar.aStar(1, 8);
+	        List<Integer> aStarPath = aStar.search(1, 8);
 	        String aStarOutput = "";
 	        
 	        for (int item : aStarPath) {
