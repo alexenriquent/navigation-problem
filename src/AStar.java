@@ -43,16 +43,11 @@ public class AStar {
 				
 				if (closedSet.contains(adjacentVertex)) {
 					continue;
-				}
-				
-				double distance = entry.getValue();
-				double g = distance + currentVertex.getG();
-				
-				if (g < adjacentVertex.getG()) {
-					adjacentVertex.setG(g);
+				}			
+				if ((entry.getValue() + currentVertex.getG()) < adjacentVertex.getG()) {
+					adjacentVertex.setG(entry.getValue() + currentVertex.getG());
 					adjacentVertex.setH(destination);
 					adjacentVertex.setF();
-					
 					path.put(adjacentVertex.getVertex(), currentVertex.getVertex());
 					if (!openSet.contains(adjacentVertex)) {
 						openSet.add(adjacentVertex);
