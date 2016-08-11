@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -70,6 +71,12 @@ public class AStar {
 			pathList.add(destination);
 		}
 		Collections.reverse(pathList);
-		return pathList;
+		
+		Iterator<Integer> iterator = pathList.iterator();
+		List<Integer> optimalPath = new ArrayList<Integer>();
+		while (iterator.hasNext()) {
+			optimalPath.add((iterator.next() + 1));
+		}
+		return optimalPath;
 	}
 }
