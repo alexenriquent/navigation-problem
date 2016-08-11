@@ -58,16 +58,15 @@ public class AStar {
 		return null;
 	}
 	
-	private List<Integer> path(Map<Integer, Integer> path, int destination) {
-		List<Integer> pathList = new ArrayList<Integer>();
-		pathList.add(destination);
-		while (path.containsKey(destination)) {
-			destination = path.get(destination);
-			pathList.add(destination);
+	private List<Integer> path(Map<Integer, Integer> pathList, int destination) {
+		List<Integer> path = new ArrayList<Integer>();
+		path.add(destination);
+		while (pathList.containsKey(destination)) {
+			destination = pathList.get(destination);
+			path.add(destination);
 		}
-		Collections.reverse(pathList);
-		
-		Iterator<Integer> iterator = pathList.iterator();
+		Collections.reverse(path);
+		Iterator<Integer> iterator = path.iterator();
 		List<Integer> optimalPath = new ArrayList<Integer>();
 		while (iterator.hasNext()) {
 			optimalPath.add((iterator.next() + 1));
