@@ -38,8 +38,8 @@ public class Program {
 				case "A*":
 					AStarGraph graph = new AStarGraph();
 					graph.setGraph(adjacencyMatrix, matrixSize);
-					AStar aStar = new AStar(graph);
-					List<Integer> aStarPath = aStar.search(source, destination);
+					AStar aStar = new AStar();
+					List<Integer> aStarPath = aStar.search(graph, source, destination);
 			        String aStarOutput = parseOutput(aStarPath);
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);

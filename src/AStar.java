@@ -12,18 +12,13 @@ import java.util.Set;
 public class AStar {
 	
 	public static final int CAPACITY = 11;
-
-	private AStarGraph graph;
 	
-	public AStar(AStarGraph graph) {
-		this.graph = graph;
-	}
-	
-	public List<Integer> search(int source, int destination) {
+	public List<Integer> search(AStarGraph graph, int source, int destination) {
 		Map<Integer, Integer> path = new HashMap<Integer, Integer>();
 		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
 		Set<AStarVertex> closedSet = new HashSet<AStarVertex>();
 		AStarVertex rootVertex = graph.getVertex(source);
+		
 		rootVertex.setG(0.0);
 		rootVertex.setH(destination);
 		rootVertex.setF();
@@ -40,7 +35,7 @@ public class AStar {
 			
 			for (Map.Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
 				AStarVertex adjacentVertex = graph.getVertex(entry.getKey());
-				
+
 				if (closedSet.contains(adjacentVertex)) {
 					continue;
 				}			
@@ -65,6 +60,10 @@ public class AStar {
 			destination = pathList.get(destination);
 			path.add(destination);
 		}
+		return result(path);
+	}
+	
+	private List<Integer> result(List<Integer> path) {
 		Collections.reverse(path);
 		Iterator<Integer> iterator = path.iterator();
 		List<Integer> optimalPath = new ArrayList<Integer>();
