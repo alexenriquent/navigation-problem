@@ -1,0 +1,15 @@
+14
+Uniform 1 2
+Uniform 1 3
+Uniform 1 4
+Uniform 1 5
+Uniform 1 6
+Uniform 1 7
+Uniform 1 8
+A* 1 2
+A* 1 3
+A* 1 4
+A* 1 5
+A* 1 6
+A* 1 7
+A* 1 8
