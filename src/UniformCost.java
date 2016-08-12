@@ -11,7 +11,7 @@ public class UniformCost {
 	private int vertexCount;
 	private int parentVertices[];
 	private double costs[];
-	private PriorityQueue<UCVertex> priorityQueue;
+	private PriorityQueue<UCVertex> frontier;
     private Set<Integer> explored;
     private LinkedList<Integer> pathList;
         
@@ -20,7 +20,7 @@ public class UniformCost {
         this.costs = new double[vertexCount];
         this.parentVertices = new int[vertexCount];
         this.explored = new HashSet<Integer>();
-        this.priorityQueue = new PriorityQueue<UCVertex>(vertexCount, new UCVertex());
+        this.frontier = new PriorityQueue<UCVertex>(vertexCount, new UCVertex());
         this.pathList = new LinkedList<Integer>();
     }
     
@@ -28,10 +28,10 @@ public class UniformCost {
         int currentVertex;
  
         initialiseCosts();
-        priorityQueue.add(new UCVertex(source, 0.0));
         costs[source] = 0.0;
+        frontier.add(new UCVertex(source, 0.0));
  
-        while (!priorityQueue.isEmpty()) {
+        while (!frontier.isEmpty()) {
             currentVertex = nextVertex();
             if (currentVertex == destination) {
                 path(graph, source, destination);
@@ -40,15 +40,16 @@ public class UniformCost {
             explored.add(currentVertex);
             for (int i = 0; i < vertexCount; i++) {
                 if (!explored.contains(i) && graph[currentVertex][i] != Double.MAX_VALUE) {
-                    if (costs[i] > graph[currentVertex][i] + costs[currentVertex]) {
-                        costs[i] = graph[currentVertex][i] + costs[currentVertex];                         
+                	double distance = graph[currentVertex][i] + costs[currentVertex];
+                    if (costs[i] > distance) {
+                        costs[i] = distance;                         
                         parentVertices[i] = currentVertex;
                     }
                     UCVertex vertex = new UCVertex(i, costs[i]);
-                    if (priorityQueue.contains(vertex)) {
-                        priorityQueue.remove(vertex);
+                    if (frontier.contains(vertex)) {
+                        frontier.remove(vertex);
                     }
-                    priorityQueue.add(vertex);
+                    frontier.add(vertex);
                 }
             }
         }
@@ -86,7 +87,7 @@ public class UniformCost {
     }
     
     private int nextVertex() {
-        UCVertex vertex = priorityQueue.remove();
+        UCVertex vertex = frontier.remove();
         return vertex.getVertex();
     }
     

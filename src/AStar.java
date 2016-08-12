@@ -18,9 +18,7 @@ public class AStar {
 		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
 		Set<AStarVertex> closedSet = new HashSet<AStarVertex>();
 		AStarVertex rootVertex = graph.getVertex(source);		
-		rootVertex.setG(0.0);
-		rootVertex.setH(destination);
-		rootVertex.setF();
+		rootVertex.setHeuristic(0.0, destination);
 		openSet.add(rootVertex);
 		
 		while (!openSet.isEmpty()) {
@@ -45,9 +43,7 @@ public class AStar {
 					continue;
 				}			
 				if ((entry.getValue() + currentVertex.getG()) < adjacentVertex.getG()) {
-					adjacentVertex.setG(entry.getValue() + currentVertex.getG());
-					adjacentVertex.setH(destination);
-					adjacentVertex.setF();
+					adjacentVertex.setHeuristic((entry.getValue() + currentVertex.getG()), destination);
 					path.put(adjacentVertex.getVertex(), currentVertex.getVertex());
 					if (!openSet.contains(adjacentVertex)) {
 						openSet.add(adjacentVertex);

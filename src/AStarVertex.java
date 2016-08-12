@@ -33,24 +33,18 @@ public class AStarVertex implements Comparator<AStarVertex> {
 		return g;
 	}
 	
-	public void setG(double g) {
-		this.g = g;
-	}
-	
 	public double getH() {
 		return h;
-	}
-	
-	public void setH(int destination) {
-		this.h = heuristics.get(destination);
 	}
 	
 	public double getF() {
 		return f;
 	}
 	
-	public void setF() {
-		this.f = g + h;
+	public void setHeuristic(double distance, int destination) {
+		g = distance; 
+		h = heuristics.get(destination);
+		f = g + h;
 	}
 	
 	public Map<Integer, Double> getHeuristics() {
