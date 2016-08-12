@@ -17,7 +17,7 @@ public class AStarVertex implements Comparator<AStarVertex> {
 		edges = null;
 	}
 	
-	public AStarVertex(int vertex, Map<Integer, Double> heuristics,
+	public AStarVertex(int vertex, Map<Integer, Double> heuristics, 
 						Map<Integer, Double> edges) {
 		this.vertex = vertex;
 		this.g = Double.MAX_VALUE;
@@ -75,7 +75,8 @@ public class AStarVertex implements Comparator<AStarVertex> {
 			return 1;
 		} else if (firstVertex.getF() < secondVertex.getF()) {
 			return -1;
+		} else {
+			return 0;
 		}
-		return 0;
 	}
 }

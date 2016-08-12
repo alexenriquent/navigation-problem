@@ -17,8 +17,7 @@ public class AStar {
 		Map<Integer, Integer> path = new HashMap<Integer, Integer>();
 		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
 		Set<AStarVertex> closedSet = new HashSet<AStarVertex>();
-		AStarVertex rootVertex = graph.getVertex(source);
-		
+		AStarVertex rootVertex = graph.getVertex(source);		
 		rootVertex.setG(0.0);
 		rootVertex.setH(destination);
 		rootVertex.setF();
@@ -28,7 +27,13 @@ public class AStar {
 			AStarVertex currentVertex = openSet.poll();
 			
 			if (currentVertex.getVertex() == destination) {
-				return path(path, destination);
+				List<Integer> returnPath = new ArrayList<Integer>();
+				returnPath.add(destination);
+				while (path.containsKey(destination)) {
+					destination = path.get(destination);
+					returnPath.add(destination);
+				}
+				return result(returnPath);
 			}
 			
 			closedSet.add(currentVertex);
@@ -51,16 +56,6 @@ public class AStar {
 			}
 		}
 		return null;
-	}
-	
-	private List<Integer> path(Map<Integer, Integer> pathList, int destination) {
-		List<Integer> path = new ArrayList<Integer>();
-		path.add(destination);
-		while (pathList.containsKey(destination)) {
-			destination = pathList.get(destination);
-			path.add(destination);
-		}
-		return result(path);
 	}
 	
 	private List<Integer> result(List<Integer> path) {

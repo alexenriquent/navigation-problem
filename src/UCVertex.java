@@ -40,7 +40,8 @@ public class UCVertex implements Comparator<UCVertex> {
 			return 1;
 		} else if (firstVertex.getVertex() < secondVertex.getVertex()) {
 			return -1;
+		} else {
+			return 0;
 		}
-		return 0;
 	}
 }
