@@ -27,30 +27,21 @@ public class Program {
 				int source = Integer.parseInt(splitStr[1]) - 1;
 				int destination = Integer.parseInt(splitStr[2]) - 1;
 				switch (query) {
-				case "Uniform":		
-					UniformCost uniformCost = new UniformCost(matrixSize);
-					double matrix[][] = uniformCost.setGraph(adjacencyMatrix, matrixSize);
-					long startTime = System.nanoTime();
-					List<Integer> UCPath = uniformCost.search(matrix, source, destination);
-					long stopTime = System.nanoTime();
+				case "Uniform":	
+					UniformCostGraph matrix = new UniformCostGraph(adjacencyMatrix, matrixSize);
+					UniformCost uniformCost = new UniformCost(matrix, matrixSize, source, destination);
+					List<Integer> UCPath = uniformCost.search();
 					String UCOutput = parseOutput(UCPath);
 					output.add(UCOutput);
 					System.out.println(UCOutput);
-					double elapsedTime = (stopTime - startTime) / 1000000.0;
-//					System.out.println(elapsedTime);
 					break;
 				case "A*":
-					AStarGraph graph = new AStarGraph();
-					graph.setGraph(adjacencyMatrix, matrixSize);
-					AStar aStar = new AStar();
-					long start = System.nanoTime();
-					List<Integer> aStarPath = aStar.search(graph, source, destination);
-					long stop = System.nanoTime();
+					AStarGraph graph = new AStarGraph(adjacencyMatrix, matrixSize);
+					AStar aStar = new AStar(graph, source, destination);
+					List<Integer> aStarPath = aStar.search();
 			        String aStarOutput = parseOutput(aStarPath);
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);
-			        double elapsed = (stop - start) / 1000000.0;
-//					System.out.println(elapsed);
 					break;
 				}
 			}

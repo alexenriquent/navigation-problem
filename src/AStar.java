@@ -9,33 +9,34 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 
-public class AStar {
+public class AStar extends AbstractSearchAlgorithm<AStarGraph> {
 	
 	private Map<Integer, Integer> path;
 	private Queue<AStarVertex> openSet;
 	private Set<AStarVertex> closedSet;
 	public static final int CAPACITY = 11;
 	
-	public AStar() {
+	public AStar(AStarGraph graph, int source, int destination) {
+		super(graph, source, destination);
 		this.path = new HashMap<Integer, Integer>();
 		this.openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
 		this.closedSet = new HashSet<AStarVertex>();
 	}
 	
-	public List<Integer> search(AStarGraph graph, int source, int destination) {
-		AStarVertex rootVertex = graph.getVertex(source);		
-		rootVertex.setHeuristic(0.0, destination);
+	public List<Integer> search() {
+		AStarVertex rootVertex = this.getGraph().getVertex(this.getSource());		
+		rootVertex.setHeuristic(0.0, this.getDestination());
 		openSet.add(rootVertex);
 		
 		while (!openSet.isEmpty()) {
 			AStarVertex currentVertex = openSet.poll();
 			
-			if (currentVertex.getVertex() == destination) {
+			if (currentVertex.getVertex() == this.getDestination()) {
 				List<Integer> returnPath = new ArrayList<Integer>();
-				returnPath.add(destination);
-				while (path.containsKey(destination)) {
-					destination = path.get(destination);
-					returnPath.add(destination);
+				returnPath.add(this.getDestination());
+				while (path.containsKey(this.getDestination())) {
+					this.setDestination(path.get(this.getDestination()));
+					returnPath.add(this.getDestination());
 				}
 				return result(returnPath);
 			}
@@ -46,13 +47,13 @@ public class AStar {
 								+ " h = " + currentVertex.getH()
 								+ " f = " + currentVertex.getF());
 			for (Map.Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
-				AStarVertex adjacentVertex = graph.getVertex(entry.getKey());
+				AStarVertex adjacentVertex = this.getGraph().getVertex(entry.getKey());
 
 				if (closedSet.contains(adjacentVertex)) {
 					continue;
 				}			
 				if ((entry.getValue() + currentVertex.getG()) < adjacentVertex.getG()) {
-					adjacentVertex.setHeuristic((entry.getValue() + currentVertex.getG()), destination);
+					adjacentVertex.setHeuristic((entry.getValue() + currentVertex.getG()), this.getDestination());
 					path.put(adjacentVertex.getVertex(), currentVertex.getVertex());
 					if (!openSet.contains(adjacentVertex)) {
 						openSet.add(adjacentVertex);

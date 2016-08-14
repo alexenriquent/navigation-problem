@@ -6,11 +6,12 @@ public class AStarGraph {
 	private Map<Integer, AStarVertex> graph;
 	private static final double MAX_VALUE = 1000.0;
 	
-	public AStarGraph() {
+	public AStarGraph(double adjacencyMatrix[][], int size) {
 		graph = new HashMap<Integer, AStarVertex>();
+		setGraph(adjacencyMatrix, size);
 	}
 	
-	public void setGraph(double adjacencyMatrix[][], int size) {
+	private void setGraph(double adjacencyMatrix[][], int size) {
 		for (int i = 0; i < size; i++) {
 			Map<Integer, Double> heuristics = new HashMap<Integer, Double>();
 			Map<Integer, Double> edges = new HashMap<Integer, Double>();
