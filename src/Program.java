@@ -37,7 +37,7 @@ public class Program {
 					output.add(UCOutput);
 					System.out.println(UCOutput);
 					double elapsedTime = (stopTime - startTime) / 1000000.0;
-					System.out.println(elapsedTime);
+//					System.out.println(elapsedTime);
 					break;
 				case "A*":
 					AStarGraph graph = new AStarGraph();
@@ -50,7 +50,7 @@ public class Program {
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);
 			        double elapsed = (stop - start) / 1000000.0;
-					System.out.println(elapsed);
+//					System.out.println(elapsed);
 					break;
 				}
 			}

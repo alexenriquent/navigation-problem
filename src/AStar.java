@@ -35,7 +35,10 @@ public class AStar {
 			}
 			
 			closedSet.add(currentVertex);
-			
+			System.out.println("Current node: " + (currentVertex.getVertex() + 1)
+								+ " g = " + currentVertex.getG()
+								+ " h = " + currentVertex.getH()
+								+ " f = " + currentVertex.getF());
 			for (Map.Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
 				AStarVertex adjacentVertex = graph.getVertex(entry.getKey());
 
@@ -49,6 +52,10 @@ public class AStar {
 						openSet.add(adjacentVertex);
 					}
 				}
+				System.out.println("	Adjacent node: " + (adjacentVertex.getVertex() + 1)
+						+ " g = " + adjacentVertex.getG()
+						+ " h = " + adjacentVertex.getH()
+						+ " f = " + adjacentVertex.getF());
 			}
 		}
 		return null;
