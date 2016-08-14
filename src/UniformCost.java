@@ -26,7 +26,6 @@ public class UniformCost {
     
     public List<Integer> search(double graph[][], int source, int destination) {
         int currentVertex;
- 
         initialiseCosts();
         costs[source] = 0.0;
         frontier.add(new UCVertex(source, 0.0));

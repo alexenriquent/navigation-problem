@@ -11,12 +11,18 @@ import java.util.Set;
 
 public class AStar {
 	
+	private Map<Integer, Integer> path;
+	private Queue<AStarVertex> openSet;
+	private Set<AStarVertex> closedSet;
 	public static final int CAPACITY = 11;
 	
+	public AStar() {
+		this.path = new HashMap<Integer, Integer>();
+		this.openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
+		this.closedSet = new HashSet<AStarVertex>();
+	}
+	
 	public List<Integer> search(AStarGraph graph, int source, int destination) {
-		Map<Integer, Integer> path = new HashMap<Integer, Integer>();
-		Queue<AStarVertex> openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
-		Set<AStarVertex> closedSet = new HashSet<AStarVertex>();
 		AStarVertex rootVertex = graph.getVertex(source);		
 		rootVertex.setHeuristic(0.0, destination);
 		openSet.add(rootVertex);
