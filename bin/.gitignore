@@ -1,3 +1,9 @@
+/AStar.class
+/AStarGraph.class
+/AStarVertex.class
 /AbstractSearchAlgorithm.class
+/IO.class
+/Program.class
+/UniformCost.class
 /UniformCostGraph.class
 /UniformCostVertex.class

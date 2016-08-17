@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -42,11 +43,7 @@ public class AStar extends AbstractSearchAlgorithm<AStarGraph> {
 			}
 			
 			closedSet.add(currentVertex);
-			System.out.println("Current node: " + (currentVertex.getVertex() + 1)
-								+ " g = " + currentVertex.getG()
-								+ " h = " + currentVertex.getH()
-								+ " f = " + currentVertex.getF());
-			for (Map.Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
+			for (Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
 				AStarVertex adjacentVertex = this.getGraph().getVertex(entry.getKey());
 
 				if (closedSet.contains(adjacentVertex)) {
@@ -59,10 +56,6 @@ public class AStar extends AbstractSearchAlgorithm<AStarGraph> {
 						openSet.add(adjacentVertex);
 					}
 				}
-				System.out.println("	Adjacent node: " + (adjacentVertex.getVertex() + 1)
-						+ " g = " + adjacentVertex.getG()
-						+ " h = " + adjacentVertex.getH()
-						+ " f = " + adjacentVertex.getF());
 			}
 		}
 		return null;

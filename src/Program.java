@@ -7,9 +7,9 @@ public class Program {
 	
 	public static void main(String[] args) throws IOException {
 
-		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv1.txt";
-		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries1.txt";
-		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output.txt";
+		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
+		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
+		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output-100-a.txt";
 		List<String> output = new ArrayList<String>();
 		
 		try {
@@ -42,6 +42,12 @@ public class Program {
 			        String aStarOutput = parseOutput(aStarPath);
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);
+//					UniformCostGraph m = new UniformCostGraph(adjacencyMatrix, matrixSize);
+//					UniformCost uc = new UniformCost(m, matrixSize, source, destination);
+//					List<Integer> p = uc.search();
+//					String t = parseOutput(p);
+//					output.add(t);
+//					System.out.println(t);
 					break;
 				}
 			}
