@@ -1,73 +1,101 @@
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 
-public class AStar extends AbstractSearchAlgorithm<AStarGraph> {
+public class AStar extends SearchAlgorithm<Graph> {
 	
-	private Map<Integer, Integer> path;
-	private Queue<AStarVertex> openSet;
-	private Set<AStarVertex> closedSet;
-	public static final int CAPACITY = 11;
-	
-	public AStar(AStarGraph graph, int source, int destination) {
-		super(graph, source, destination);
-		this.path = new HashMap<Integer, Integer>();
-		this.openSet = new PriorityQueue<AStarVertex>(CAPACITY, new AStarVertex());
-		this.closedSet = new HashSet<AStarVertex>();
-	}
-	
-	public List<Integer> search() {
-		AStarVertex rootVertex = this.getGraph().getVertex(this.getSource());		
-		rootVertex.setHeuristic(0.0, this.getDestination());
-		openSet.add(rootVertex);
-		
-		while (!openSet.isEmpty()) {
-			AStarVertex currentVertex = openSet.poll();
-			
-			if (currentVertex.getVertex() == this.getDestination()) {
-				List<Integer> returnPath = new ArrayList<Integer>();
-				returnPath.add(this.getDestination());
-				while (path.containsKey(this.getDestination())) {
-					this.setDestination(path.get(this.getDestination()));
-					returnPath.add(this.getDestination());
-				}
-				return result(returnPath);
-			}
-			
-			closedSet.add(currentVertex);
-			for (Entry<Integer, Double> entry: currentVertex.getEdges().entrySet()) {
-				AStarVertex adjacentVertex = this.getGraph().getVertex(entry.getKey());
+	private int vertexCount;
+	private double costs[];
+	private int pathList[];
+	private LinkedList<Integer> path;
+	private PriorityQueue<AStarVertex> openSet;
+    private Set<Integer> closedSet;
+        
+    public AStar(Graph graph, int vertexCount, int source, int destination) {
+    	super(graph, source, destination);
+        this.vertexCount = vertexCount;
+        this.costs = new double[vertexCount];
+        this.pathList = new int[vertexCount];
+        this.path = new LinkedList<Integer>();
+        this.closedSet = new HashSet<Integer>();
+        this.openSet = new PriorityQueue<AStarVertex>(vertexCount, new AStarVertex());
+    }
+    
+    public List<Integer> search() {
+        int currentVertex;
+        initialiseCosts();
+        costs[this.getSource()] = 0.0;
+        AStarVertex root = new AStarVertex(this.getSource(), 0.0);
+        root.setHeuristics(this.getGraph().getGraph(), this.getGraph().getSize());
+        root.setHeuristic(0.0, this.getDestination());
+//        System.out.println((root.getVertex() + 1) + " " +root.getG() + " " + root.getH() + " " + root.getF());
+        openSet.add(root);
+ 
+        while (!openSet.isEmpty()) {
+            currentVertex = nextVertex();
+            if (currentVertex == this.getDestination()) {
+                path(this.getSource(), this.getDestination());
+                return result();
+            } 
+            closedSet.add(currentVertex);
+            for (int i = 0; i < vertexCount; i++) {
+                if (!closedSet.contains(i)) {
+                	if (this.getGraph().getGraph()[currentVertex][i] != Double.MAX_VALUE) {
+                		double g = this.getGraph().getGraph()[currentVertex][i] + costs[currentVertex];
+                		if (costs[i] > g) {
+                			costs[i] = g;                         
+                			pathList[i] = currentVertex;
+                		}
+                		AStarVertex vertex = new AStarVertex(i, costs[i]);
+                		vertex.setHeuristics(this.getGraph().getGraph(), this.getGraph().getSize());
+                		vertex.setHeuristic(g, this.getDestination());
+//                		System.out.println("	" + (vertex.getVertex() + 1) + " " + vertex.getG() + " " + vertex.getH() + " " + vertex.getF());
+                		if (openSet.contains(vertex)) {
+                			openSet.remove(vertex);
+                		}
+                		openSet.add(vertex);
+                	}
+                }
+            }
+        }
+        return null;
+    }
 
-				if (closedSet.contains(adjacentVertex)) {
-					continue;
-				}			
-				if ((entry.getValue() + currentVertex.getG()) < adjacentVertex.getG()) {
-					adjacentVertex.setHeuristic((entry.getValue() + currentVertex.getG()), this.getDestination());
-					path.put(adjacentVertex.getVertex(), currentVertex.getVertex());
-					if (!openSet.contains(adjacentVertex)) {
-						openSet.add(adjacentVertex);
-					}
-				}
-			}
-		}
-		return null;
-	}
-	
-	private List<Integer> result(List<Integer> path) {
-		Collections.reverse(path);
-		Iterator<Integer> iterator = path.iterator();
-		List<Integer> optimalPath = new ArrayList<Integer>();
-		while (iterator.hasNext()) {
-			optimalPath.add((iterator.next() + 1));
-		}
-		return optimalPath;
-	}
+    private void initialiseCosts() {
+    	for (int i = 0; i < vertexCount; i++) {
+            costs[i] = Double.MAX_VALUE;
+        }
+    }
+    
+    private int nextVertex() {
+    	AStarVertex vertex = openSet.remove();
+        return vertex.getVertex();
+    }
+    
+    private void path(int source, int destination) {
+        int vertex = destination;
+    	path.add(vertex);
+        boolean foundPath = false;
+        while (!foundPath) {
+            if (vertex == source) {
+            	foundPath = true;
+                break;
+            }
+            path.add(pathList[vertex]);
+            vertex = pathList[vertex];
+        }
+    }
+    
+    private List<Integer> result() {
+    	Iterator<Integer> iterator = path.descendingIterator();
+        List<Integer> optimalPath = new ArrayList<Integer>();
+        while (iterator.hasNext()) {
+            optimalPath.add((iterator.next() + 1));
+        }
+        return optimalPath;
+    }
 }

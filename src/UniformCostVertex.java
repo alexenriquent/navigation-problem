@@ -1,33 +1,20 @@
 import java.util.Comparator;
 
-public class UniformCostVertex implements Comparator<UniformCostVertex> {
-	
-	private int vertex;
-	private double weight;
+public class UniformCostVertex extends Vertex implements Comparator<UniformCostVertex> {
 	
 	public UniformCostVertex() {
-		this.vertex = 0;
-		this.weight = 0.0;
+		super();
 	}
 	
 	public UniformCostVertex(int vertex, double weight) {
-		this.vertex = vertex;
-		this.weight = weight;
-	}
-	
-	public int getVertex() {
-		return vertex;
-	}
-	
-	public double getWeight() {
-		return weight;
+		super(vertex, weight);
 	}
 	
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof UniformCostVertex) {
-			UniformCostVertex ucVertex = (UniformCostVertex) other;
-			return (this.vertex == ucVertex.getVertex()) ? true : false;
+			UniformCostVertex vertex = (UniformCostVertex) other;
+			return (this.getVertex() == vertex.getVertex()) ? true : false;
 		}
 		return false;
 	}

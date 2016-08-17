@@ -7,3 +7,6 @@
 /UniformCost.class
 /UniformCostGraph.class
 /UniformCostVertex.class
+/Graph.class
+/Vertex.class
+/SearchAlgorithm.class

@@ -1,18 +1,18 @@
 import java.util.List;
 
-public abstract class AbstractSearchAlgorithm<T> {
+public abstract class SearchAlgorithm<T> {
 
 	private T graph;
 	private int source;
 	private int destination;
 	
-	public AbstractSearchAlgorithm() {
+	public SearchAlgorithm() {
 		this.graph = null;
 		this.source = 0;
 		this.destination = 0;	
 	}
 	
-	public AbstractSearchAlgorithm(T graph, int source, int destination) {
+	public SearchAlgorithm(T graph, int source, int destination) {
 		this.graph = graph;
 		this.source = source;
 		this.destination = destination;	

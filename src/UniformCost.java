@@ -6,23 +6,23 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-public class UniformCost extends AbstractSearchAlgorithm<UniformCostGraph> {
+public class UniformCost extends SearchAlgorithm<Graph> {
 	
 	private int vertexCount;
-	private int parentVertices[];
 	private double costs[];
+	private int pathList[];
 	private PriorityQueue<UniformCostVertex> frontier;
     private Set<Integer> explored;
-    private LinkedList<Integer> pathList;
+    private LinkedList<Integer> path;
         
-    public UniformCost(UniformCostGraph graph, int vertexCount, int source, int destination) {
+    public UniformCost(Graph graph, int vertexCount, int source, int destination) {
     	super(graph, source, destination);
         this.vertexCount = vertexCount;
         this.costs = new double[vertexCount];
-        this.parentVertices = new int[vertexCount];
+        this.pathList = new int[vertexCount];
         this.explored = new HashSet<Integer>();
         this.frontier = new PriorityQueue<UniformCostVertex>(vertexCount, new UniformCostVertex());
-        this.pathList = new LinkedList<Integer>();
+        this.path = new LinkedList<Integer>();
     }
     
     public List<Integer> search() {
@@ -43,7 +43,7 @@ public class UniformCost extends AbstractSearchAlgorithm<UniformCostGraph> {
                 	double distance = this.getGraph().getGraph()[currentVertex][i] + costs[currentVertex];
                     if (costs[i] > distance) {
                         costs[i] = distance;                         
-                        parentVertices[i] = currentVertex;
+                        pathList[i] = currentVertex;
                     }
                     UniformCostVertex vertex = new UniformCostVertex(i, costs[i]);
                     if (frontier.contains(vertex)) {
@@ -69,20 +69,20 @@ public class UniformCost extends AbstractSearchAlgorithm<UniformCostGraph> {
     
     private void path(int source, int destination) {
         int vertex = destination;
-    	pathList.add(vertex);
+    	path.add(vertex);
         boolean foundPath = false;
         while (!foundPath) {
             if (vertex == source) {
             	foundPath = true;
                 break;
             }
-            pathList.add(parentVertices[vertex]);
-            vertex = parentVertices[vertex];
+            path.add(pathList[vertex]);
+            vertex = pathList[vertex];
         }
     }
     
     private List<Integer> result() {
-    	Iterator<Integer> iterator = pathList.descendingIterator();
+    	Iterator<Integer> iterator = path.descendingIterator();
         List<Integer> optimalPath = new ArrayList<Integer>();
         while (iterator.hasNext()) {
             optimalPath.add((iterator.next() + 1));

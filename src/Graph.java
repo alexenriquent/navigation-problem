@@ -1,17 +1,23 @@
-public class UniformCostGraph {
-
-	private double graph[][];
+public class Graph {
 	
-	public UniformCostGraph() {
+	private double graph[][];
+	private int size;
+	
+	public Graph() {
 		this.graph = null;
 	}
 	
-	public UniformCostGraph(double graph[][], int size) {
+	public Graph(double graph[][], int size) {
 		this.graph = setGraph(graph, size);
+		this.size = size;
 	}
 	
 	public double[][] getGraph() {
 		return graph;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 	
 	private double[][] setGraph(double graph[][], int size) {

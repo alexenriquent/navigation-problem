@@ -7,9 +7,9 @@ public class Program {
 	
 	public static void main(String[] args) throws IOException {
 
-		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
-		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
-		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output-100-a.txt";
+		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-1000.txt";
+		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-1000.txt";
+		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output-1000.txt";
 		List<String> output = new ArrayList<String>();
 		
 		try {
@@ -28,26 +28,28 @@ public class Program {
 				int destination = Integer.parseInt(splitStr[2]) - 1;
 				switch (query) {
 				case "Uniform":	
-					UniformCostGraph matrix = new UniformCostGraph(adjacencyMatrix, matrixSize);
+					Graph matrix = new Graph(adjacencyMatrix, matrixSize);
 					UniformCost uniformCost = new UniformCost(matrix, matrixSize, source, destination);
+					double start = System.nanoTime();
 					List<Integer> UCPath = uniformCost.search();
+					double end = System.nanoTime();
 					String UCOutput = parseOutput(UCPath);
 					output.add(UCOutput);
 					System.out.println(UCOutput);
+					double elapsed = (end - start) / 1e6;
+					System.out.println(elapsed);
 					break;
 				case "A*":
-					AStarGraph graph = new AStarGraph(adjacencyMatrix, matrixSize);
-					AStar aStar = new AStar(graph, source, destination);
+					Graph graph = new Graph(adjacencyMatrix, matrixSize);
+					AStar aStar = new AStar(graph, matrixSize, source, destination);
+					double begin = System.nanoTime();
 					List<Integer> aStarPath = aStar.search();
+					double finish = System.nanoTime();
 			        String aStarOutput = parseOutput(aStarPath);
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);
-//					UniformCostGraph m = new UniformCostGraph(adjacencyMatrix, matrixSize);
-//					UniformCost uc = new UniformCost(m, matrixSize, source, destination);
-//					List<Integer> p = uc.search();
-//					String t = parseOutput(p);
-//					output.add(t);
-//					System.out.println(t);
+			        double time = (finish - begin) / 1e6;
+					System.out.println(time);
 					break;
 				}
 			}
