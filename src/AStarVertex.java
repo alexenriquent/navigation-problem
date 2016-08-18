@@ -32,7 +32,7 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 		return f;
 	}
 	
-	public void setHeuristic(Graph graph, double distance, int destination) {
+	public void setHeuristic(Graph graph, int destination) {
 		g = this.getWeight(); 
 		h = graph.getGraph()[this.getVertex()][destination];
 		if (h == Double.MAX_VALUE) 
