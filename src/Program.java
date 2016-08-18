@@ -7,9 +7,9 @@ public class Program {
 	
 	public static void main(String[] args) throws IOException {
 
-		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-1000.txt";
-		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-1000.txt";
-		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output-1000.txt";
+		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
+		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
+		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output-100-a.txt";
 		List<String> output = new ArrayList<String>();
 		
 		try {
@@ -37,7 +37,7 @@ public class Program {
 					output.add(UCOutput);
 					System.out.println(UCOutput);
 					double elapsed = (end - start) / 1e6;
-					System.out.println(elapsed);
+//					System.out.println(elapsed);
 					break;
 				case "A*":
 					Graph graph = new Graph(adjacencyMatrix, matrixSize);
@@ -49,7 +49,7 @@ public class Program {
 			        output.add(aStarOutput);   
 			        System.out.println(aStarOutput);
 			        double time = (finish - begin) / 1e6;
-					System.out.println(time);
+//					System.out.println(time);
 					break;
 				}
 			}
