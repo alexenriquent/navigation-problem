@@ -21,14 +21,12 @@ public class UniformCostVertex extends Vertex implements Comparator<UniformCostV
 	
 	@Override 
 	public int compare(UniformCostVertex firstVertex, UniformCostVertex secondVertex) {
-		if (firstVertex.getWeight() < secondVertex.getWeight()) {
+		if (firstVertex.getWeight() < secondVertex.getWeight())
 			return -1;
-		} else if (firstVertex.getWeight() > secondVertex.getWeight()) {
+		if (firstVertex.getWeight() > secondVertex.getWeight())
 			return 1;
-		} else if (firstVertex.getVertex() < secondVertex.getVertex()) {
+		if (firstVertex.getVertex() < secondVertex.getVertex())
 			return -1;
-		} else {
-			return 0;
-		}
+		return 0;
 	}
 }

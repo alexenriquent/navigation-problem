@@ -35,8 +35,6 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 	public void setHeuristic(Graph graph, int destination) {
 		g = this.getWeight(); 
 		h = graph.getGraph()[this.getVertex()][destination];
-		if (h == Double.MAX_VALUE) 
-			h = 0.0;
 		h = this.getWeight();
 		f = g + h;
 	}
@@ -58,13 +56,5 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 		if (firstVertex.getVertex() < secondVertex.getVertex())
 			return -1;
 		return 0;
-		
-//		if (firstVertex.getWeight() < secondVertex.getWeight())
-//			return -1;
-//		if (firstVertex.getWeight() > secondVertex.getWeight())
-//			return 1;
-//		if (firstVertex.getVertex() < secondVertex.getVertex())
-//			return -1;
-//		return 0;
 	}
 }
