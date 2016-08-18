@@ -1,11 +1,8 @@
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
 
 public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 	
 	private double g, h, f;
-	private Map<Integer, Double> heuristics;
 	
 	public AStarVertex() {
 		super();
@@ -35,25 +32,12 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 		return f;
 	}
 	
-	public void setHeuristic(double distance, int destination) {
+	public void setHeuristic(Graph graph, double distance, int destination) {
 		g = distance; 
-		h = heuristics.get(destination);
+		h = graph.getGraph()[this.getVertex()][destination];
+		if (h == Double.MAX_VALUE) 
+			h = 0.0;
 		f = g + h;
-	}
-	
-	public Map<Integer, Double> getHeuristics() {
-		return heuristics;
-	}
-	
-	public void setHeuristics(double matrix[][], int size) {
-		this.heuristics = new HashMap<Integer, Double>();
-		for (int i = 0; i < size; i++) {
-			if (matrix[this.getVertex()][i] == Double.MAX_VALUE) {
-				this.heuristics.put(i, 0.0);
-			} else {
-				this.heuristics.put(i, matrix[this.getVertex()][i]);
-			}
-		}
 	}
 	
 	@Override

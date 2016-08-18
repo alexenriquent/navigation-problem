@@ -30,8 +30,7 @@ public class AStar extends SearchAlgorithm<Graph> {
         initialiseCosts();
         costs[this.getSource()] = 0.0;
         AStarVertex root = new AStarVertex(this.getSource(), 0.0);
-        root.setHeuristics(this.getGraph().getGraph(), this.getGraph().getSize());
-        root.setHeuristic(0.0, this.getDestination());
+        root.setHeuristic(this.getGraph(), 0.0, this.getDestination());
 //        System.out.println((root.getVertex() + 1) + " " +root.getG() + " " + root.getH() + " " + root.getF());
         openSet.add(root);
  
@@ -51,8 +50,7 @@ public class AStar extends SearchAlgorithm<Graph> {
                 			pathList[i] = currentVertex;
                 		}
                 		AStarVertex vertex = new AStarVertex(i, costs[i]);
-                		vertex.setHeuristics(this.getGraph().getGraph(), this.getGraph().getSize());
-                		vertex.setHeuristic(g, this.getDestination());
+                		vertex.setHeuristic(this.getGraph(), g, this.getDestination());
 //                		System.out.println("	" + (vertex.getVertex() + 1) + " " + vertex.getG() + " " + vertex.getH() + " " + vertex.getF());
                 		if (openSet.contains(vertex)) {
                 			openSet.remove(vertex);
