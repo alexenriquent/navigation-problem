@@ -14,18 +14,18 @@ public class UniformCostVertex extends Vertex implements Comparator<UniformCostV
 	public boolean equals(Object other) {
 		if (other instanceof UniformCostVertex) {
 			UniformCostVertex vertex = (UniformCostVertex) other;
-			return (this.getVertex() == vertex.getVertex()) ? true : false;
+			return (this.vertex == vertex.vertex) ? true : false;
 		}
 		return false;
 	}
 	
 	@Override 
 	public int compare(UniformCostVertex firstVertex, UniformCostVertex secondVertex) {
-		if (firstVertex.getWeight() < secondVertex.getWeight())
+		if (firstVertex.weight < secondVertex.weight)
 			return -1;
-		if (firstVertex.getWeight() > secondVertex.getWeight())
+		if (firstVertex.weight > secondVertex.weight)
 			return 1;
-		if (firstVertex.getVertex() < secondVertex.getVertex())
+		if (firstVertex.vertex < secondVertex.vertex)
 			return -1;
 		return 0;
 	}

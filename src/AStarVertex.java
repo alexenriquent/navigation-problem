@@ -32,10 +32,10 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 		return f;
 	}
 	
-	public void setHeuristic(Graph graph, int destination) {
-		g = this.getWeight(); 
-		h = graph.getGraph()[this.getVertex()][destination];
-		h = this.getWeight();
+	public void setHeuristic(Graph graph, double distance, int destination) {
+		g = distance; 
+//		h = graph.getGraph()[this.vertex][destination];
+		h = this.weight;
 		f = g + h;
 	}
 	
@@ -43,7 +43,7 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 	public boolean equals(Object other) {
 		if (other instanceof AStarVertex) {
 			AStarVertex vertex = (AStarVertex) other;
-			return (this.getVertex() == vertex.getVertex()) ? true : false;
+			return (this.vertex == vertex.vertex) ? true : false;
 		}
 		return false;
 	}
@@ -53,7 +53,7 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 			return -1;
 		if (firstVertex.getF() > secondVertex.getF()) 
 			return 1;
-		if (firstVertex.getVertex() < secondVertex.getVertex())
+		if (firstVertex.vertex < secondVertex.vertex)
 			return -1;
 		return 0;
 	}

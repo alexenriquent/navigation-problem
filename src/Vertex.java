@@ -1,7 +1,7 @@
 public abstract class Vertex {
 
-	private int vertex;
-	private double weight;
+	protected int vertex;
+	protected double weight;
 	
 	public Vertex() {
 		this.vertex = 0;
@@ -11,13 +11,5 @@ public abstract class Vertex {
 	public Vertex(int vertex, double weight) {
 		this.vertex = vertex;
 		this.weight = weight;
-	}
-	
-	public int getVertex() {
-		return vertex;
-	}
-	
-	public double getWeight() {
-		return weight;
 	}
 }
