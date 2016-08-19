@@ -9,16 +9,16 @@ public class Program {
 
 //		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv1.txt";
 //		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries1.txt";
-		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
-		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
+//		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
+//		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
 //		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-b.txt";
 //		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-b.txt";
 //		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-1000.txt";
 //		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-1000.txt";
-		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output.txt";
-//		String envPath = args[0];
-//		String queryPath = args[1];
-//		String outputPath = "output.txt";
+//		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output.txt";
+		String envPath = args[0];
+		String queryPath = args[1];
+		String outputPath = "output.txt";
 		List<String> output = new ArrayList<String>();
 		
 		try {
