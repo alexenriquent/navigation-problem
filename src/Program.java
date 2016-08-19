@@ -1,21 +1,11 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.nio.file.Paths;
 
 public class Program {
 	
 	public static void main(String[] args) throws IOException {
 
-//		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv1.txt";
-//		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries1.txt";
-//		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-a.txt";
-//		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-a.txt";
-//		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-100-b.txt";
-//		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-100-b.txt";
-//		String envPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exEnv-1000.txt";
-//		String queryPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/exQueries-1000.txt";
-//		String outputPath = Paths.get(".").toAbsolutePath().normalize().toString() + "/test/output.txt";
 		String envPath = args[0];
 		String queryPath = args[1];
 		String outputPath = "output.txt";
@@ -39,26 +29,16 @@ public class Program {
 				case "Uniform":	
 					Graph matrix = new Graph(adjacencyMatrix, matrixSize);
 					UniformCost uniformCost = new UniformCost(matrix, source, destination);
-					double start = System.nanoTime();
 					List<Integer> UCPath = uniformCost.search();
-					double end = System.nanoTime();
 					String UCOutput = parseOutput(UCPath);
 					output.add(UCOutput);
-					System.out.println(UCOutput);
-					double elapsed = (end - start) / 1e6;
-					System.out.println(elapsed);
 					break;
 				case "A*":
 					Graph graph = new Graph(adjacencyMatrix, matrixSize);
 					AStar aStar = new AStar(graph, source, destination);
-					double begin = System.nanoTime();
 					List<Integer> aStarPath = aStar.search();
-					double finish = System.nanoTime();
 			        String aStarOutput = parseOutput(aStarPath);
 			        output.add(aStarOutput);   
-			        System.out.println(aStarOutput);
-			        double time = (finish - begin) / 1e6;
-					System.out.println(time);
 					break;
 				}
 			}

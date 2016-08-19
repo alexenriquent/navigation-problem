@@ -34,7 +34,7 @@ public class AStarVertex extends Vertex implements Comparator<AStarVertex> {
 	
 	public void setHeuristic(Graph graph, double distance, int destination) {
 		g = distance; 
-//		h = graph.getGraph()[this.vertex][destination];
+		h = graph.getGraph()[this.vertex][destination];
 		h = this.weight;
 		f = g + h;
 	}
