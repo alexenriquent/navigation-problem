@@ -43,11 +43,14 @@ public class IO {
 		FileWriter file = new FileWriter(path);
 		BufferedWriter buffer = new BufferedWriter(file);
 		Iterator<String> iterator = data.iterator();
+		String output = "";
 		
 		while (iterator.hasNext()) {
-			buffer.write(iterator.next());
-			buffer.newLine();
+			output = output.concat(iterator.next());
+			output = output.concat("\n");
 		}
+		
+		buffer.write(output.substring(0, output.length() - 1));
 		
 		buffer.close();
 	}

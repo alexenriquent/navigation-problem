@@ -8,7 +8,7 @@ public class Program {
 
 		String envPath = args[0];
 		String queryPath = args[1];
-		String outputPath = "output.txt";
+		String outputPath = args[2];
 		List<String> output = new ArrayList<String>();
 		
 		try {
@@ -19,8 +19,9 @@ public class Program {
 			
 			int matrixSize = Integer.parseInt(envData[0]);			
 			double adjacencyMatrix[][] = parseMatrix(matrixSize, envData);
+			int queryCount = Integer.parseInt(queryData[0]);
 			
-			for (int i = 1; i < queryData.length; i++) {
+			for (int i = 1; i <= queryCount; i++) {
 				String[] splitStr = queryData[i].split(" ");
 				String query = splitStr[0];
 				int source = Integer.parseInt(splitStr[1]) - 1;
